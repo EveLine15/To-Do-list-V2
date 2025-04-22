@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
-import { setTask, toggleStatus, changeTaskName } from '../../store/slices/tasksSlice';
+import { setTask } from '../../store/slices/tasksSlice';
 import { useState, useRef, useEffect } from 'react'
 
 import "./ShowTask.scss"
@@ -22,12 +22,14 @@ export default function ShowTask() {
     dispatch(setTask(newTasks));
   }
 
-  const changeStatus = (id) => {
-    dispatch(toggleStatus(id))
+  const changeStatus = (toggleId) => {
+    const task = store.tasksList.find(t => t.id === toggleId);
+    if(task) task.status = task.status === 'completed' ? 'active' : 'completed';
   }
 
   const changeName = (id) => {
-    dispatch(changeTaskName({id: id, newName: newName}));
+    const task = store.tasksList.find(t => t.id === id);
+    if(newName !== "") task.name = newName;
     setNameChange(true);
   }
 
