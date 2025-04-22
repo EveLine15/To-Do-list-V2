@@ -23,13 +23,26 @@ export default function ShowTask() {
   }
 
   const changeStatus = (toggleId) => {
-    const task = store.tasksList.find(t => t.id === toggleId);
-    if(task) task.status = task.status === 'completed' ? 'active' : 'completed';
+    const updatedTasks = tasks.map(t => {
+      if (t.id === toggleId) {
+        return { ...t, status: t.status === 'completed' ? 'active' : 'completed' };
+      }
+      return t;
+    });
+    dispatch(setTask(updatedTasks));
   }
 
   const changeName = (id) => {
-    const task = store.tasksList.find(t => t.id === id);
-    if(newName !== "") task.name = newName;
+    if (newName.trim() === "") return;
+  
+    const updatedTasks = tasks.map(t => {
+      if (t.id === id) {
+        return { ...t, name: newName };
+      }
+      return t;
+    });
+  
+    dispatch(setTask(updatedTasks));
     setNameChange(true);
   }
 
