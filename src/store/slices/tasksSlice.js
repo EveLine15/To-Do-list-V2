@@ -13,7 +13,7 @@ const tasksSlice = createSlice({
 
         toggleStatus: (state, action) => {
             const task = state.tasksList.find(t => t.id === action.payload);
-            if(task) task.status = task.status === 'true' ? 'false' : 'true';
+            if(task) task.status = task.status === 'completed' ? 'active' : 'completed';
         },
 
         changeTaskName: (state, action) => {

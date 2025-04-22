@@ -9,9 +9,103 @@
     form{
         display: flex;
         flex-direction: column;
-        width: 30%;
+        width: 50%;
+
+        h2{
+            color: white;
+            font-size: 30px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
 
         input{
+            width: 100%;
+            height: 33px;
+            font-size: 17px;
+            font-weight: 700;
+            border-radius: 10px;
+            border: none;
+            padding: 15px 15px;
+            margin-bottom: 20px;
+
+            // &.must-fill{
+            //     border: 4px solid #d02e2e;
+            // }
+
+            &::placeholder{
+                font-weight: 700;
+                margin-bottom: 20px;
+            }
+
+            &:focus {
+                outline: none;
+                border: 3px solid #2ed03c;
+            }
+
+            &.must-fill {
+                outline: none;
+                border: 3px solid #d02e2e;
+            }
         }
+
+        .disc{
+            width: 100%;
+            height: 60px;
+            resize: none;
+            border-radius: 10px;
+            padding: 7px;
+            font-weight: 700;
+            font-size: 17px;
+            margin-bottom: 20px;
+
+            &:focus {
+                outline: none;
+                border: 3px solid #2ed03c;
+            }
+
+            &::-webkit-scrollbar{
+                display: none;
+            }
+        }
+
+        .down-block{
+            display: flex;
+            justify-content: space-between;
+        }
+
+        select{
+            width: 70%;
+            height: 54px;
+            border-radius: 10px;
+            border: none;
+            padding-left: 15px;
+            background: url("../../assets/imgs/arrowDown.png") no-repeat 95% / 20px;
+            background-color: white;
+            -webkit-appearance: none;
+            font-weight: 700;
+            font-size: 17px;
+
+            &:focus{
+                outline: none;
+            }
+
+            option{
+                font-size: 15px;
+                font-weight: 700;
+            }
+        }
+
+        button{
+            width: 150px;
+            font-size: 27px;
+            font-weight: 800;
+            border: none;
+            color: white;
+            background-color: #2ed03c;
+            padding: 8px 10px;
+            border-radius: 10px;
+        }
+
+
     }
 }

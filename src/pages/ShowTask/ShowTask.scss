@@ -7,7 +7,67 @@
     }
 
     a{
+        font-size: 27px;
+        font-weight: 800;
         text-decoration: none;
+        color: white;
+        background-color: #2ed03c;
+        padding: 8px 10px;
+        border-radius: 10px;
+    }
+
+    .function-block{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+
+        .filters-block{
+            display: flex;
+            column-gap: 15px;
+            width: 50%;
+
+            input{
+                width: 100%;
+                height: 54px;
+                border-radius: 10px;
+                border: none;
+                padding: 5px 15px;
+
+                &::placeholder{
+                    font-weight: 700;
+                    margin-bottom: 20px;
+                }
+
+                &:focus {
+                    outline: none;
+                    border: 3px solid #2ed03c;
+             }
+            }
+
+            select{
+                width: 30%;
+                border-radius: 10px;
+                border: none;
+                padding-left: 15px;
+                background: url("../../assets/imgs/arrowDown.png") no-repeat 95% / 20px;
+                background-color: white;
+                -webkit-appearance: none;
+                font-weight: 700;
+                font-size: 17px;
+
+                &:focus{
+                    outline: none;
+                }
+
+                option{
+                    font-size: 15px;
+                    font-weight: 700;
+                }
+            }
+        }
+
     }
 
     .tasks-holder{
@@ -19,6 +79,10 @@
             width: 100%;
             border: 3px #2ed03c solid;
             border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 15px;
 
             h1{
                 font-size: 30px;
@@ -27,14 +91,44 @@
             p{
                 font-size: 20px;
                 font-weight: 800;
-                margin-bottom: 20px;
+                color: white;
+            }
+
+            .content{
+                display: flex;
+                align-items: center;
+                width: 50%;
+            }
+
+            .check{
+                width: 40px;
+                height: 40px;
+                margin-right: 20px;
+                accent-color: #2ed03c;
             }
 
             .taskChange-block{
                 position: relative;
+                height: 42px;
+                width: 100%;
+                text-align: center;
 
                 .true{
                     display: none;
+                }
+            }
+
+            button{
+                font-size: 27px;
+                font-weight: 800;
+                border: none;
+                color: white;
+                background-color: #2ed03c;
+                padding: 8px 10px;
+                border-radius: 10px;
+
+                &:hover{
+                    background-color: #53cc5d;
                 }
             }
         }
