@@ -1,0 +1,42 @@
+.wr-show-task{
+    h1{
+        color: white;
+        font-size: 50px;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+
+    a{
+        text-decoration: none;
+    }
+
+    .tasks-holder{
+        display: flex;
+        flex-direction: column;
+        row-gap: 12px;
+
+        .task{
+            width: 100%;
+            border: 3px #2ed03c solid;
+            border-radius: 12px;
+
+            h1{
+                font-size: 30px;
+            }
+
+            p{
+                font-size: 20px;
+                font-weight: 800;
+                margin-bottom: 20px;
+            }
+
+            .taskChange-block{
+                position: relative;
+
+                .true{
+                    display: none;
+                }
+            }
+        }
+    }
+}
