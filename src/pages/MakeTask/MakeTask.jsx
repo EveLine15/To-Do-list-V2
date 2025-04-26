@@ -2,9 +2,9 @@ import React from 'react'
 import "./MakeTask.scss"
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { setTask } from '../../store/slices/tasksSlice';
-import { useSelector } from 'react-redux'
 import { useState } from 'react';
+
+import { useGetTasksQuery, useAddTaskMutation } from '../../Services/taskApi';
 
 export default function () {
   const navigate = useNavigate();
@@ -13,8 +13,10 @@ export default function () {
   const [error, setError] = useState(false)
   const [statusOfTask, setStatusOfTask] = useState("active");
   const [discOfTask, setDiscOfTask] = useState("");
-  const tasks = useSelector(data => data.tasks.tasksList);
   
+  const { data: tasks = [], isLoading } = useGetTasksQuery();
+  const [addTask] = useAddTaskMutation();
+
   const createTask = (e) => {
     e.preventDefault();
 
@@ -24,12 +26,12 @@ export default function () {
     }
 
     else{
-      dispatch(setTask([...tasks, {
+      addTask({
         id: (tasks.length > 0 ? tasks[tasks.length - 1].id : -1) + 1,
         name: nameOfTask,
         status: statusOfTask,
         disc: discOfTask
-      }]))
+      })
       navigate("/");
     }
   }

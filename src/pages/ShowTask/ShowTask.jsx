@@ -1,48 +1,35 @@
 import React from 'react'
 import { Link } from 'react-router'
-import { useSelector, useDispatch } from 'react-redux'
-import { setTask } from '../../store/slices/tasksSlice';
 import { useState, useRef, useEffect } from 'react'
+
+import { useGetTasksQuery, useUpdateTaskMutation, useDeleteTaskMutation } from '../../Services/taskApi';
 
 import "./ShowTask.scss"
 
 export default function ShowTask() {
-  const tasks = useSelector(data => data.tasks.tasksList);
-  const dispatch = useDispatch();
+  const { data: tasks = [], isLoading } = useGetTasksQuery();
+  const [updateTask] = useUpdateTaskMutation();
+  const [deleteTask] = useDeleteTaskMutation();
 
-  const [nameChange, setNameChange] = useState(true);
+  const [nameChange, setNameChange] = useState(null);
+  console.log(nameChange)
   const [newName, setNewName] = useState("");
   const [filterName, setFilterName] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
 
   const newNameRef = useRef(null);
 
-  const delTask = (task) => {
-    const newTasks = tasks.filter(item => item.id !== task.id);
-    dispatch(setTask(newTasks));
+  const delTask = (id) => {
+    deleteTask(id);
   }
 
-  const changeStatus = (toggleId) => {
-    const updatedTasks = tasks.map(t => {
-      if (t.id === toggleId) {
-        return { ...t, status: t.status === 'completed' ? 'active' : 'completed' };
-      }
-      return t;
-    });
-    dispatch(setTask(updatedTasks));
+  const changeStatus = (toggleId, currentStatus) => {
+    updateTask({ id: toggleId, status: currentStatus === 'completed' ? 'active' : 'completed' });
   }
 
-  const changeName = (id) => {
+  const changeName = (Taskid) => {
     if (newName.trim() === "") return;
-  
-    const updatedTasks = tasks.map(t => {
-      if (t.id === id) {
-        return { ...t, name: newName };
-      }
-      return t;
-    });
-  
-    dispatch(setTask(updatedTasks));
+    updateTask({ id: Taskid, name: newName });
     setNameChange(true);
   }
 
@@ -55,8 +42,6 @@ export default function ShowTask() {
   return (
     <div className='wr-show-task'>
       <h1>Your tasks</h1>
-
-
       <div className='function-block'>
         <div className='filters-block'>
           <input type="text" value={filterName} onChange={(e) => {setFilterName(e.target.value)}} placeholder='Name filter'/>
@@ -83,11 +68,17 @@ export default function ShowTask() {
                 (
                   <div className='task' key={index}>
                     <div className='content'>
-                      <input className='check' type="checkbox" checked={task.status === "completed"} onChange={() => changeStatus(task.id)}/>
-
+                      <label className="custom-checkbox">
+                        <input 
+                          type="checkbox" 
+                          checked={task.status === "completed"} 
+                          onChange={() => changeStatus(task.id, task.status)}/>
+                        <span className="checkmark"></span>
+                      </label>
                       <div className='taskChange-block'>
-                        <h1 className={`${!nameChange}`} onDoubleClick={() => {setNameChange(false); setNewName(task.name)}}>{task.name}</h1>
-                        <input ref={newNameRef} className={`taskChange ${nameChange}`} type="text" value={newName} 
+                        {/* true -> display: none */}
+                        <h1 className={`${nameChange === task.id}`} onDoubleClick={() => {setNameChange(task.id); setNewName(task.name)}}>{task.name}</h1>
+                        <input ref={newNameRef} className={`taskChange ${nameChange !== task.id}`} type="text" value={newName} 
                           onChange={(e) => setNewName(e.target.value)} 
                           onKeyDown={(e) => handleKeyDown(e, task.id)} 
                           onBlur={() => changeName(task.id)}/>
@@ -96,7 +87,7 @@ export default function ShowTask() {
                       <p className='disc'>{task.disc}</p>
                     </div>
                     
-                    <button onClick={() => delTask(task)}>Delete</button>
+                    <button onClick={() => delTask(task.id)}>Delete</button>
                   </div>
                 )
               )
