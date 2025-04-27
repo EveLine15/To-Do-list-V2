@@ -8,13 +8,12 @@ import { useGetTasksQuery, useAddTaskMutation } from '../../Services/taskApi';
 
 export default function () {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [nameOfTask, setNameOfTask] = useState("");
   const [error, setError] = useState(false)
   const [statusOfTask, setStatusOfTask] = useState("active");
   const [discOfTask, setDiscOfTask] = useState("");
   
-  const { data: tasks = [], isLoading } = useGetTasksQuery();
+  const { data: tasks = [] } = useGetTasksQuery();
   const [addTask] = useAddTaskMutation();
 
   const createTask = (e) => {

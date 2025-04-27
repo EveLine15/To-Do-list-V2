@@ -7,7 +7,7 @@ import { useGetTasksQuery, useUpdateTaskMutation, useDeleteTaskMutation } from '
 import "./ShowTask.scss"
 
 export default function ShowTask() {
-  const { data: tasks = [], isLoading } = useGetTasksQuery();
+  const { data: tasks = [] } = useGetTasksQuery();
   const [updateTask] = useUpdateTaskMutation();
   const [deleteTask] = useDeleteTaskMutation();
 
